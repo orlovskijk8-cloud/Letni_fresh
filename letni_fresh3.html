@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Летний Fresh | Пиксельная коллекция наград 🍹</title>
+    <style>
+        /* ПИКСЕЛЬНЫЙ РЕТРО-СТИЛЬ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            image-rendering: crisp-edges;
+            image-rendering: pixelated;
+            image-rendering: pixelated;
+        }
+
+        body {
+            background: #1a3f2c;
+            /* пиксельный паттерн - имитация старой игры */
+            background-image: 
+                linear-gradient(45deg, #2b5a3a 1px, transparent 1px),
+                linear-gradient(-45deg, #2b5a3a 1px, transparent 1px);
+            background-size: 32px 32px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Courier New', 'VT323', 'Fira Code', monospace;
+            padding: 1.5rem;
+        }
+
+        /* главная карточка — пиксельный уголок */
+        .glass-panel {
+            max-width: 700px;
+            width: 100%;
+            background: #fef7cf;
+            border: 4px solid #4a2a1a;
+            box-shadow: 8px 8px 0 #2c1a0c;
+            transition: all 0.1s step-end;
+            image-rendering: pixelated;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* шапка с телеграм-пиксель */
+        .hero {
+            background: #2d2b1a;
+            padding: 1.5rem;
+            text-align: center;
+            color: #fff0b5;
+            border-bottom: 3px solid #f5b642;
+            text-shadow: 2px 2px 0 #3a2a0a;
+        }
+
+        .hero h1 {
+            font-size: 2rem;
+            letter-spacing: 2px;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .hero h1 span {
+            background: #00000077;
+            padding: 0 10px;
+            border: 2px solid #f5b642;
+        }
+
+        .tg-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #3a2c1c;
+            margin-top: 12px;
+            padding: 6px 16px;
+            text-decoration: none;
+            font-weight: bold;
+            color: #ffeaac;
+            border: 2px solid #f5b642;
+            font-family: monospace;
+            font-size: 0.9rem;
+            transition: 0.05s linear;
+        }
+
+        .tg-link:active {
+            transform: translate(2px, 2px);
+        }
+
+        /* Профиль + имя пользователя */
+        .profile-section {
+            background: #ecd896;
+            padding: 1rem 1.5rem 0.5rem;
+            border-bottom: 2px dashed #b97f3e;
+        }
+
+        .user-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            background: #fffaec;
+            padding: 10px 15px;
+            border: 2px solid #a7662c;
+            margin-bottom: 12px;
+        }
+
+        .user-label {
+            font-weight: bold;
+            background: #2c1e0e;
+            color: #ffdd99;
+            padding: 5px 12px;
+            letter-spacing: 1px;
+        }
+
+        #usernameInput {
+            background: #2a2418;
+            border: 2px solid #f5b642;
+            padding: 8px 12px;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            color: #ffeaaf;
+            font-size: 1rem;
+            width: 180px;
+        }
+
+        .save-name-btn {
+            background: #7c5d34;
+            border: none;
+            font-family: monospace;
+            font-weight: bold;
+            padding: 6px 14px;
+            color: white;
+            cursor: pointer;
+            border: 2px solid #f5b642;
+        }
+
+        .save-name-btn:active {
+            transform: translate(2px, 2px);
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 10px;
+            background: #2a2418;
+            padding: 12px 18px;
+            margin: 12px 0;
+            border: 2px solid #f5b642;
+            color: #fbe6a2;
+        }
+
+        .score-box, .level {
+            background: #1f180e;
+            padding: 5px 12px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .score-box span {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #f7bc45;
+        }
+
+        .xp-bar {
+            background: #2f2a1f;
+            border: 2px solid #f5b642;
+            height: 18px;
+            margin: 8px 0;
+        }
+
+        .xp-fill {
+            width: 0%;
+            height: 100%;
+            background: #f7b32b;
+            transition: width 0.2s steps(10);
+        }
+
+        /* коллекция наград пиксель */
+        .rewards-section {
+            padding: 0.5rem 1.5rem 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 0.5rem 0 1rem;
+            border-left: 8px solid #f5b642;
+            padding-left: 12px;
+            font-family: monospace;
+            text-transform: uppercase;
+        }
+
+        .badge-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .reward-card {
+            background: #f4eacf;
+            border: 2px solid #bc7a3a;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 14px;
+            box-shadow: 3px 3px 0 #6b3f1a;
+            transition: 0.05s linear;
+        }
+
+        .reward-card.unlocked {
+            background: #cae3b2;
+            border-left: 8px solid #3a9622;
+        }
+
+        .reward-icon {
+            font-size: 2.5rem;
+            min-width: 55px;
+            text-align: center;
+            filter: drop-shadow(2px 2px 0px #af7b3a);
+        }
+
+        .reward-info {
+            flex: 1;
+        }
+
+        .reward-title {
+            font-weight: 900;
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        .reward-desc {
+            font-size: 0.7rem;
+            color: #543d1f;
+        }
+
+        .reward-cost {
+            background: #372812;
+            padding: 4px 10px;
+            color: #ffcf8a;
+            font-weight: bold;
+            font-size: 0.75rem;
+        }
+
+        .claim-btn {
+            background: #d18f3c;
+            border: none;
+            font-family: monospace;
+            font-weight: bold;
+            padding: 6px 14px;
+            cursor: pointer;
+            border: 2px solid #ffd58c;
+            color: #2f220d;
+        }
+
+        .claim-btn:active {
+            transform: translate(2px, 2px);
+        }
+
+        .claim-btn.disabled-btn {
+            background: #7f6a4a;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        .action-area {
+            padding: 0.2rem 1.5rem 1.8rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .daily-btn {
+            background: #b4622a;
+            border: none;
+            padding: 12px 20px;
+            font-family: monospace;
+            font-weight: bold;
+            font-size: 1rem;
+            color: #ffefbf;
+            cursor: pointer;
+            border: 2px solid #f5b642;
+            flex: 1;
+            text-transform: uppercase;
+        }
+
+        .daily-btn:active {
+            transform: translate(2px, 2px);
+        }
+
+        .daily-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .reset-btn {
+            background: #6e4f2c;
+        }
+
+        .toast-msg {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #000000cc;
+            border: 3px solid #f5b642;
+            padding: 10px 20px;
+            font-family: monospace;
+            font-weight: bold;
+            color: #fae67a;
+            z-index: 999;
+            white-space: nowrap;
+            font-size: 0.9rem;
+            backdrop-filter: blur(4px);
+        }
+
+        footer {
+            background: #dbb56b;
+            text-align: center;
+            padding: 12px;
+            font-size: 0.65rem;
+            border-top: 3px solid #8b5a2b;
+            font-family: monospace;
+        }
+
+        @media (max-width: 550px) {
+            .toast-msg {
+                white-space: normal;
+                width: 85%;
+                text-align: center;
+            }
+            .user-row {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .reward-card {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="glass-panel">
+    <div class="hero">
+        <h1>🍹 Летний FRESH <span>Коктейли</span> 🍹</h1>
+        <a href="https://t.me/letnyfresh" target="_blank" class="tg-link">
+            📟 TELEGRAM · @letnyfresh
+        </a>
+        <div style="font-size: 0.7rem; margin-top: 8px;">⚡ ПИКСЕЛЬНАЯ СИСТЕМА НАГРАД ⚡</div>
+    </div>
+
+    <div class="profile-section">
+        <div class="user-row">
+            <span class="user-label">👤 ПИКСЕЛЬ-НИК</span>
+            <input type="text" id="usernameInput" placeholder="ТВОЙ ПРОФИЛЬ" maxlength="20">
+            <button class="save-name-btn" id="saveNameBtn">СОХРАНИТЬ</button>
+        </div>
+        <div class="stats">
+            <div class="score-box">🍋 ОЧКИ: <span id="pointsDisplay">0</span></div>
+            <div class="level" id="levelDisplay">🥤 LVL: НОВИЧОК</div>
+        </div>
+        <div class="xp-bar">
+            <div class="xp-fill" id="xpFillBar" style="width:0%"></div>
+        </div>
+        <div style="font-size: 0.65rem; text-align: right; color:#4f3a1f;">🏆 ПОЛУЧАЙ НАГРАДЫ ЗА ОЧКИ</div>
+    </div>
+
+    <div class="rewards-section">
+        <div class="section-title">
+            🎮 КОЛЛЕКЦИЯ НАГРАД 🧃
+        </div>
+        <div class="badge-grid" id="rewardsList"></div>
+    </div>
+
+    <div class="action-area">
+        <button class="daily-btn" id="dailyBoostBtn">🍊 +15 ОЧКОВ · РЕЦЕПТ ДНЯ</button>
+        <button class="daily-btn reset-btn" id="resetProgressBtn">🔄 СБРОС (ТЕСТ)</button>
+    </div>
+    <footer>
+        📟 1 РЕЦЕПТ В СУТКИ (24 ЧАСА) · ПРОФИЛЬ ЗАКРЕПЛЁН ЗА ВАМИ<br>
+        ⏳ ПОСЛЕ АКТИВАЦИИ ТАЙМЕР ОБНОВЛЯЕТСЯ В ПОЛНОЧЬ
+    </footer>
+</div>
+
+<script>
+    // ---------- ПИКСЕЛЬНЫЙ ДВИЖОК НАГРАД ----------
+    const REWARDS = [
+        { id: 0, name: "🍍 АНАНАСОВЫЙ БРИЗ", desc: "Первый шаг в мире фрешей", cost: 15, icon: "🍍", unlocked: false, claimMsg: "+ Ананасовый бриз! Тропический стиль активирован" },
+        { id: 1, name: "🍓 ЯГОДНЫЙ МИКС", desc: "Секрет летней ягоды", cost: 35, icon: "🍓", unlocked: false, claimMsg: "Клубничный заряд! Ягодный микс твой" },
+        { id: 2, name: "🥝 МЯТНЫЙ ЛИМОНАД", desc: "Освежает на 100%", cost: 60, icon: "🥝🍃", unlocked: false, claimMsg: "Мятный лимонад! Идеальная свежесть" },
+        { id: 3, name: "🍊 ЦИТРУС-ВЗРЫВ", desc: "Витаминный бум", cost: 90, icon: "🍊⚡", unlocked: false, claimMsg: "Цитрусовый взрыв! Ты полон энергии" },
+        { id: 4, name: "👑 МАСТЕР-МИКСОЛОГ", desc: "Король коктейлей", cost: 130, icon: "👑🍹", unlocked: false, claimMsg: "ТИТУЛ МАСТЕРА! Все награды открыты" }
+    ];
+
+    // УНИКАЛЬНЫЙ ПРОФИЛЬ ПОЛЬЗОВАТЕЛЯ (localStorage на основе device + отдельный ID)
+    let currentUserId = null;
+    let userPoints = 0;
+    let claimedRewards = [];
+    let userName = "ПИКСЕЛЬНЫЙ ГОСТЬ";
+    
+    // Дневной бонус (24 часа, а не до полуночи! строго 24ч с момента получения)
+    let lastBonusTimestamp = null;   // храним миллисекунды последнего получения
+
+    // Генерация уникального ID (постоянный для браузера)
+    function getDeviceUserId() {
+        let storedId = localStorage.getItem('letnyfresh_user_id');
+        if (!storedId) {
+            storedId = 'user_' + Math.random().toString(36).substr(2, 10) + Date.now();
+            localStorage.setItem('letnyfresh_user_id', storedId);
+        }
+        return storedId;
+    }
+
+    // Загружаем данные пользователя
+    function loadUserProfile() {
+        currentUserId = getDeviceUserId();
+        const storageKey = `letnyfresh_${currentUserId}_data`;
+        const savedData = localStorage.getItem(storageKey);
+        if (savedData) {
+            try {
+                const data = JSON.parse(savedData);
+                userPoints = data.points || 0;
+                claimedRewards = data.claimedRewards || [];
+                userName = data.userName || "ПИКСЕЛЬНЫЙ ГОСТЬ";
+                lastBonusTimestamp = data.lastBonusTimestamp || null;
+            } catch(e) { resetUserData(); }
+        } else {
+            resetUserData();
+        }
+        // синхронизируем unlocked статус
+        REWARDS.forEach(r => {
+            r.unlocked = claimedRewards.includes(r.id);
+        });
+        document.getElementById('usernameInput').value = userName;
+    }
+
+    function resetUserData() {
+        userPoints = 0;
+        claimedRewards = [];
+        userName = "ПИКСЕЛЬНЫЙ ГОСТЬ";
+        lastBonusTimestamp = null;
+        REWARDS.forEach(r => r.unlocked = false);
+    }
+
+    function saveUserProfile() {
+        if (!currentUserId) return;
+        const storageKey = `letnyfresh_${currentUserId}_data`;
+        const saveObj = {
+            points: userPoints,
+            claimedRewards: claimedRewards,
+            userName: userName,
+            lastBonusTimestamp: lastBonusTimestamp
+        };
+        localStorage.setItem(storageKey, JSON.stringify(saveObj));
+    }
+
+    // ---------- СУТОЧНЫЙ ТАЙМЕР 24 ЧАСА (НЕ ДО ПОЛУНОЧИ) ----------
+    function canGetDailyBonus() {
+        if (!lastBonusTimestamp) return true;
+        const now = Date.now();
+        const hoursSince = (now - lastBonusTimestamp) / (1000 * 60 * 60);
+        return hoursSince >= 24;
+    }
+
+    function getRemainingTimeMs() {
+        if (!lastBonusTimestamp) return 0;
+        const now = Date.now();
+        const elapsed = now - lastBonusTimestamp;
+        const remaining = 24 * 60 * 60 * 1000 - elapsed;
+        return remaining > 0 ? remaining : 0;
+    }
+
+    function formatRemainingTime(ms) {
+        if (ms <= 0) return "0ч 0м";
+        const hours = Math.floor(ms / (1000 * 60 * 60));
+        const minutes = Math.floor((ms % (3600000)) / 60000);
+        const seconds = Math.floor((ms % 60000) / 1000);
+        if (hours > 0) return `${hours}ч ${minutes}м`;
+        if (minutes > 0) return `${minutes}м ${seconds}с`;
+        return `${seconds}с`;
+    }
+
+    function applyDailyBonus() {
+        if (!canGetDailyBonus()) {
+            const remainMs = getRemainingTimeMs();
+            const timeStr = formatRemainingTime(remainMs);
+            showMessage(`🍋 РЕЦЕПТ УЖЕ ПОЛУЧЕН! СЛЕДУЮЩИЙ ЧЕРЕЗ ${timeStr}. (24 ЧАСА)`, true);
+            return false;
+        }
+        userPoints += 15;
+        lastBonusTimestamp = Date.now();
+        saveUserProfile();
+        showMessage(`🍹 +15 ОЧКОВ СВЕЖЕСТИ! НОВЫЙ РЕЦЕПТ ДОСТУПЕН ЧЕРЕЗ 24 ЧАСА.`, false);
+        refreshUI();
+        updateDailyButtonState();
+        return true;
+    }
+
+    // ---------- ОСТАЛЬНАЯ ЛОГИКА ----------
+    function saveName() {
+        const input = document.getElementById('usernameInput');
+        let newName = input.value.trim();
+        if (newName === "") newName = "ПИКСЕЛЬНЫЙ ГОСТЬ";
+        if (newName.length > 20) newName = newName.slice(0,20);
+        userName = newName;
+        saveUserProfile();
+        showMessage(`👤 ПРОФИЛЬ ОБНОВЛЕН: ${userName}`, false);
+        refreshUI(); 
+    }
+
+    function showMessage(text, isError = false) {
+        let toast = document.getElementById('dynamicToast');
+        if (!toast) {
+            const div = document.createElement('div');
+            div.id = 'dynamicToast';
+            div.className = 'toast-msg';
+            document.body.appendChild(div);
+            toast = div;
+        }
+        toast.style.backgroundColor = isError ? '#541e0ad9' : '#1d401ad9';
+        toast.innerText = text;
+        toast.style.opacity = '1';
+        if (window.toastTimeout) clearTimeout(window.toastTimeout);
+        window.toastTimeout = setTimeout(() => {
+            if(toast) toast.style.opacity = '0';
+        }, 2800);
+    }
+
+    function refreshUI() {
+        document.getElementById('pointsDisplay').innerText = userPoints;
+        const maxGoal = 150;
+        let percent = Math.min(100, (userPoints / maxGoal) * 100);
+        document.getElementById('xpFillBar').style.width = `${percent}%`;
+        
+        let levelText = "🍹 ЗЕЛЁНЫЙ НОВИЧОК";
+        if (userPoints >= 130) levelText = "🏆 МАСТЕР МИКСОЛОГ";
+        else if (userPoints >= 90) levelText = "🍊 ЦИТРУС-ЭКСПЕРТ";
+        else if (userPoints >= 60) levelText = "🥝 ПРОДВИНУТЫЙ ФРЕШЕР";
+        else if (userPoints >= 35) levelText = "🍓 ЯГОДНЫЙ ЛЮБИТЕЛЬ";
+        else if (userPoints >= 15) levelText = "🍍 ПЕРВЫЙ СОК";
+        document.getElementById('levelDisplay').innerHTML = `🥤 ${levelText}`;
+        
+        renderRewards();
+        saveUserProfile();
+    }
+
+    function renderRewards() {
+        const container = document.getElementById('rewardsList');
+        if (!container) return;
+        container.innerHTML = '';
+        REWARDS.forEach(reward => {
+            const isUnlocked = reward.unlocked;
+            const canAfford = (!isUnlocked && userPoints >= reward.cost);
+            const card = document.createElement('div');
+            card.className = `reward-card ${isUnlocked ? 'unlocked' : ''}`;
+            if (!isUnlocked && !canAfford) card.style.opacity = '0.7';
+            
+            const iconSpan = document.createElement('div');
+            iconSpan.className = 'reward-icon';
+            iconSpan.innerText = reward.icon;
+            
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'reward-info';
+            infoDiv.innerHTML = `<div class="reward-title">${reward.name} ${isUnlocked ? '✅' : '🔒'}</div>
+                                 <div class="reward-desc">${reward.desc}</div>`;
+            const costDiv = document.createElement('div');
+            costDiv.className = 'reward-cost';
+            costDiv.innerText = isUnlocked ? '✦ ПОЛУЧЕНО ✦' : `🍋 ${reward.cost} ОЧКОВ`;
+            
+            const actionDiv = document.createElement('div');
+            if (!isUnlocked) {
+                const btn = document.createElement('button');
+                btn.innerText = canAfford ? '🍹 ЗАБРАТЬ' : '🔒 НЕ ХВАТАЕТ';
+                btn.className = 'claim-btn';
+                if (!canAfford) btn.classList.add('disabled-btn');
+                btn.disabled = !canAfford;
+                if (canAfford) {
+                    btn.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        attemptUnlock(reward.id);
+                    });
+                }
+                actionDiv.appendChild(btn);
+            } else {
+                const badge = document.createElement('span');
+                badge.innerText = '🏆 АКТИВИРОВАНА';
+                badge.style.background = '#467a2e';
+                badge.style.padding = '4px 12px';
+                badge.style.fontSize = '0.7rem';
+                actionDiv.appendChild(badge);
+            }
+            card.append(iconSpan, infoDiv, costDiv, actionDiv);
+            container.appendChild(card);
+        });
+    }
+
+    function attemptUnlock(rewardId) {
+        const reward = REWARDS.find(r => r.id === rewardId);
+        if (!reward || reward.unlocked) return;
+        if (userPoints >= reward.cost) {
+            userPoints -= reward.cost;
+            reward.unlocked = true;
+            claimedRewards.push(reward.id);
+            showMessage(`🎉 ${reward.claimMsg} 🎉`, false);
+            refreshUI();
+            if (REWARDS.every(r => r.unlocked === true)) {
+                showMessage("🌟 ВЕЛИКОЛЕПНО! ТЫ СОБРАЛ ВСЕ НАГРАДЫ! 🌟", false);
+            }
+        } else {
+            showMessage(`🍋 НЕ ХВАТАЕТ ОЧКОВ! НУЖНО ЕЩЁ ${reward.cost - userPoints}.`, true);
+        }
+    }
+
+    function resetProgress() {
+        if (confirm("🌀 СБРОСИТЬ ВЕСЬ ПРОГРЕСС? ОЧКИ, НАГРАДЫ И ТАЙМЕР РЕЦЕПТА БУДУТ ОБНУЛЕНЫ.")) {
+            resetUserData();
+            claimedRewards = [];
+            userPoints = 0;
+            lastBonusTimestamp = null;
+            REWARDS.forEach(r => r.unlocked = false);
+            saveUserProfile();
+            refreshUI();
+            updateDailyButtonState();
+            showMessage("✨ ПРОГРЕСС СБРОШЕН! МОЖНО ПОЛУЧИТЬ РЕЦЕПТ ЗАНОВО ✨", false);
+        }
+    }
+
+    let countdownInterval = null;
+    function updateDailyButtonState() {
+        const btn = document.getElementById('dailyBoostBtn');
+        if (!btn) return;
+        if (!canGetDailyBonus()) {
+            btn.disabled = true;
+            const remainMs = getRemainingTimeMs();
+            const timeLeft = formatRemainingTime(remainMs);
+            btn.innerHTML = `⏳ РЕЦЕПТ ДНЯ · ЧЕРЕЗ ${timeLeft}`;
+        } else {
+            btn.disabled = false;
+            btn.innerHTML = `🍊 +15 ОЧКОВ · РЕЦЕПТ ДНЯ`;
+        }
+    }
+
+    function startCountdown() {
+        if (countdownInterval) clearInterval(countdownInterval);
+        countdownInterval = setInterval(() => {
+            updateDailyButtonState();
+            if (canGetDailyBonus()) {
+                const btn = document.getElementById('dailyBoostBtn');
+                if (btn && btn.disabled === false && btn.innerHTML.includes('⏳')) {
+                    btn.innerHTML = `🍊 +15 ОЧКОВ · РЕЦЕПТ ДНЯ`;
+                }
+            }
+        }, 1000);
+    }
+
+    // ---------- ИНИЦИАЛИЗАЦИЯ ----------
+    function init() {
+        loadUserProfile();
+        refreshUI();
+        updateDailyButtonState();
+        startCountdown();
+        
+        const dailyBtn = document.getElementById('dailyBoostBtn');
+        if (dailyBtn) {
+            const newDaily = dailyBtn.cloneNode(true);
+            dailyBtn.parentNode.replaceChild(newDaily, dailyBtn);
+            newDaily.addEventListener('click', (e) => {
+                e.preventDefault();
+                applyDailyBonus();
+            });
+        }
+        
+        const resetBtn = document.getElementById('resetProgressBtn');
+        if (resetBtn) {
+            const newReset = resetBtn.cloneNode(true);
+            resetBtn.parentNode.replaceChild(newReset, resetBtn);
+            newReset.addEventListener('click', resetProgress);
+        }
+        
+        const saveBtn = document.getElementById('saveNameBtn');
+        if (saveBtn) {
+            const newSave = saveBtn.cloneNode(true);
+            saveBtn.parentNode.replaceChild(newSave, saveBtn);
+            newSave.addEventListener('click', saveName);
+        }
+        
+        if (userPoints === 0 && claimedRewards.length === 0 && canGetDailyBonus()) {
+            setTimeout(() => showMessage("🍹 НАЖМИ «РЕЦЕПТ ДНЯ» И ПОЛУЧИ 15 ОЧКОВ! 1 РАЗ В 24 ЧАСА.", false), 600);
+        }
+    }
+    
+    init();
+</script>
+</body>
+</html>
